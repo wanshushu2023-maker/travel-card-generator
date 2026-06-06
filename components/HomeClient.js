@@ -1,32 +1,20 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import TravelCard from "@/components/TravelCard";
-import { findTravelCity, travelCities } from "@/data/travel-card-cities";
-
-function todayString() {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
+import { cities, findCity } from "@/data/cities";
 
 export default function HomeClient() {
   const [from, setFrom] = useState("东京 Tokyo");
   const [draftDestination, setDraftDestination] = useState("bangkok");
   const [activeDestination, setActiveDestination] = useState("bangkok");
-  const [date, setDate] = useState(todayString() || "2026-07-18");
-  const cardRef = useRef(null);
+  const [date, setDate] = useState("2026-07-18");
 
-  const city = useMemo(() => findTravelCity(activeDestination), [activeDestination]);
+  const city = useMemo(() => findCity(activeDestination), [activeDestination]);
 
-  function generateCard(event) {
+  function generateInfo(event) {
     event.preventDefault();
     setActiveDestination(draftDestination);
-    window.setTimeout(() => {
-      cardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 80);
   }
 
   function chooseHotCity(slug) {
@@ -34,109 +22,73 @@ export default function HomeClient() {
     setActiveDestination(slug);
   }
 
-  async function downloadCard() {
-    const target = cardRef.current;
-    if (!target) return;
-
-    try {
-      const mod = await import("html2canvas");
-      const html2canvas = mod.default || mod;
-      const canvas = await html2canvas(target, {
-        backgroundColor: null,
-        scale: 2,
-        useCORS: true
-      });
-      const link = document.createElement("a");
-      link.download = `${city.slug}-travel-card.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    } catch {
-      const serialized = new XMLSerializer().serializeToString(target.cloneNode(true));
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920"><foreignObject width="100%" height="100%">${serialized}</foreignObject></svg>`;
-      const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
-      const link = document.createElement("a");
-      link.download = `${city.slug}-travel-card.svg`;
-      link.href = URL.createObjectURL(blob);
-      link.click();
-      URL.revokeObjectURL(link.href);
-    }
-  }
-
   return (
-    <div className="overflow-hidden">
-      <section className="relative mx-auto w-[min(1180px,calc(100%-28px))] rounded-[32px] border border-white/80 bg-gradient-to-b from-[#d7f7ff] via-[#f9fdff] to-white px-5 pb-7 pt-8 shadow-[0_24px_70px_rgba(26,102,170,.16)] max-sm:w-full max-sm:rounded-none max-sm:px-4">
-        <div className="hero-illustration" aria-hidden="true">
-          <span className="cloud cloud-a" />
-          <span className="cloud cloud-b" />
-          <span className="city-line" />
-          <span className="temple-silhouette" />
-          <span className="longtail-boat" />
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-5xl text-center">
-          <p className="absolute left-0 top-1 rotate-[-8deg] text-left text-lg font-black italic leading-tight text-[#168ee8] max-md:static max-md:mb-2 max-md:rotate-0">
-            Plan Smart<br />
-            <span className="text-[#ff6b3f]">Travel Happy!</span>
-          </p>
-          <h1 className="text-[clamp(40px,7vw,76px)] font-black leading-tight tracking-tight text-[#102a56]">
-            旅游信息卡<span className="text-[#e55435]">生成器</span>
+    <div className="pb-10">
+      <section className="mx-auto w-[min(1180px,calc(100%-32px))] rounded-[28px] border border-[#cfe3f8] bg-[linear-gradient(180deg,#f6fbff_0%,#fff_100%)] px-8 py-10 shadow-[0_18px_60px_rgba(24,91,156,.12)] max-md:px-5 max-sm:w-full max-sm:rounded-none">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="text-[clamp(34px,5.5vw,54px)] font-black leading-tight tracking-normal">
+            <span className="text-[#0b65df]">输入目的地，</span>
+            <span className="text-[#102a56]">生成一张旅游信息卡</span>
           </h1>
-          <p className="mt-3 text-[clamp(16px,2.4vw,24px)] font-bold text-[#40546f]">
-            一键生成旅行必备信息卡，出行更省心，规划更轻松！
-          </p>
         </div>
 
-        <form onSubmit={generateCard} className="relative z-10 mx-auto mt-8 grid max-w-5xl grid-cols-[1fr_1fr_1fr_auto] gap-4 rounded-[24px] bg-white/95 p-4 shadow-[0_18px_45px_rgba(28,94,154,.14)] max-lg:grid-cols-2 max-sm:grid-cols-1">
-          <label className="form-tile">
-            <span className="form-icon bg-[#ffe8e5] text-[#ff5f4f]">📍</span>
-            <span className="min-w-0">
-              <span className="form-label">出发地：</span>
-              <input value={from} onChange={(event) => setFrom(event.target.value)} className="form-control" />
+        <form onSubmit={generateInfo} className="mx-auto mt-8 grid max-w-5xl gap-5 rounded-[22px] border border-[#d9e8f7] bg-white px-7 py-6 shadow-[0_20px_45px_rgba(28,94,154,.12)] max-md:px-4">
+          <label className="app-field">
+            <span className="app-field-icon text-[#0b65df]">⌖</span>
+            <span className="app-field-body">
+              <span className="app-field-label">已识别出发地：</span>
+              <input value={from} onChange={(event) => setFrom(event.target.value)} className="app-control" aria-label="已识别出发地" />
             </span>
+            <span className="text-sm font-bold text-[#6f7f93]">可修改</span>
           </label>
-          <label className="form-tile">
-            <span className="form-icon bg-[#e8f4ff] text-[#1677e8]">🗺️</span>
-            <span className="min-w-0">
-              <span className="form-label">目的地：</span>
-              <select value={draftDestination} onChange={(event) => setDraftDestination(event.target.value)} className="form-control">
-                {travelCities.map((item) => (
+
+          <label className="app-field">
+            <span className="app-field-icon text-[#10a7b6]">⌾</span>
+            <span className="app-field-body">
+              <span className="app-field-label">目的地：</span>
+              <select value={draftDestination} onChange={(event) => setDraftDestination(event.target.value)} className="app-control" aria-label="目的地">
+                {cities.map((item) => (
                   <option key={item.slug} value={item.slug}>
-                    {item.nameZh} {item.nameEn}
+                    {item.cityNameZh} {item.cityNameEn}
                   </option>
                 ))}
               </select>
             </span>
+            <span className="text-3xl leading-none">→</span>
           </label>
-          <label className="form-tile">
-            <span className="form-icon bg-[#fff0e2] text-[#ff7a3d]">🗓️</span>
-            <span className="min-w-0">
-              <span className="form-label">出发日期：</span>
-              <input type="date" value={date} onChange={(event) => setDate(event.target.value)} className="form-control" />
+
+          <label className="app-field">
+            <span className="app-field-icon text-[#ff7a3d]">日</span>
+            <span className="app-field-body">
+              <span className="app-field-label">出发日期：</span>
+              <input type="date" value={date} onChange={(event) => setDate(event.target.value)} className="app-control" aria-label="出发日期" />
             </span>
+            <span className="text-3xl leading-none">→</span>
           </label>
-          <button type="submit" className="rounded-[22px] bg-gradient-to-br from-[#ff7b58] to-[#ff403d] px-9 py-4 text-lg font-black text-white shadow-[0_16px_30px_rgba(255,82,70,.28)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(255,82,70,.36)]">
-            ✨ 生成信息卡
+
+          <button type="submit" className="mt-1 rounded-[16px] bg-gradient-to-r from-[#16c6b7] to-[#0b73e8] px-8 py-4 text-xl font-black text-white shadow-[0_16px_32px_rgba(13,116,214,.22)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(13,116,214,.3)]">
+            生成旅行信息
           </button>
         </form>
       </section>
 
-      <section className="mx-auto mt-6 w-[min(1180px,calc(100%-28px))] rounded-[26px] bg-white/90 p-4 shadow-[0_16px_45px_rgba(28,94,154,.1)] max-sm:w-[calc(100%-18px)]">
+      <section className="mx-auto mt-6 w-[min(1180px,calc(100%-32px))] rounded-[22px] border border-[#d9e8f7] bg-white/95 p-5 shadow-[0_16px_36px_rgba(28,94,154,.1)]">
         <div className="flex flex-wrap items-center gap-3">
-          <span className="mr-1 text-lg font-black text-[#102a56]">🔥 热门城市</span>
-          {travelCities.map((item) => (
-            <button key={item.slug} type="button" onClick={() => chooseHotCity(item.slug)} className={`hot-pill ${item.slug === activeDestination ? "hot-pill-active" : ""}`}>
+          <span className="mr-2 text-lg font-black text-[#102a56]">🔥 热门城市</span>
+          {cities.map((item) => (
+            <button key={item.slug} type="button" onClick={() => chooseHotCity(item.slug)} className={`hot-city-button ${item.slug === activeDestination ? "hot-city-button-active" : ""}`}>
               <span>{item.emoji}</span>
-              {item.nameZh}
+              {item.cityNameZh}
             </button>
           ))}
+          <button type="button" className="ml-auto inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-bold text-[#6f7f93] transition hover:bg-[#edf7ff] max-md:ml-0">
+            换一批 <span className="text-lg">↻</span>
+          </button>
         </div>
       </section>
 
-      <section className="mx-auto my-8 grid w-[min(1180px,calc(100%-28px))] justify-items-center gap-4 max-sm:w-[calc(100%-18px)]">
-        <TravelCard ref={cardRef} city={city} from={from} date={date} shareUrl={`https://example.com/card?to=${city.slug}`} />
-        <button type="button" onClick={downloadCard} className="w-[min(540px,100%)] rounded-[18px] bg-gradient-to-br from-[#ffb347] via-[#ff7462] to-[#1677e8] px-6 py-4 text-xl font-black text-white shadow-[0_18px_42px_rgba(36,95,162,.22)] transition hover:-translate-y-0.5">
-          下载信息卡
-        </button>
+      <section className="mx-auto mt-7 w-[min(1180px,calc(100%-32px))]">
+        <TravelCard city={city} from={from} date={date} shareUrl={`https://example.com/card?to=${city.slug}`} />
       </section>
     </div>
   );
