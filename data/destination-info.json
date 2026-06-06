@@ -1,0 +1,82 @@
+{
+  "bangkok": {
+    "tagline_zh": "微笑之都，精彩无限！",
+    "tagline_en": "City of smiles",
+    "cover_theme": "river-temple",
+    "airports": ["BKK 素万那普机场", "DMK 廊曼机场"],
+    "transport": "直飞 / 中转 / 联运查询",
+    "weather_sample": {"current": "31°C", "desc": "小雨", "range": "28–33°C", "clothing": "轻装为主，带雨具"},
+    "language": {"primary": "泰语为主", "english": "英语基础可用", "hello": "Sawadee krap/ka（你好）"},
+    "reminders": ["护照", "机票", "酒店预订", "官方入口", "eSIM", "保险", "转换头"]
+  },
+  "tokyo": {
+    "tagline_zh": "都市秩序与季节风物交织。",
+    "tagline_en": "Culture, trains and city lights",
+    "cover_theme": "tower-city",
+    "airports": ["HND 羽田机场", "NRT 成田机场"],
+    "transport": "直飞 / 中转 / 铁路联运",
+    "weather_sample": {"current": "24°C", "desc": "多云", "range": "22–29°C", "clothing": "轻便外套，舒适步行鞋"},
+    "language": {"primary": "日语为主", "english": "热门区域英语基础可用", "hello": "Konnichiwa（你好）"},
+    "reminders": ["护照", "机票", "酒店预订", "官方入口", "eSIM", "保险", "交通卡"]
+  },
+  "singapore": {
+    "tagline_zh": "花园城市，轻松转机与短途旅行。",
+    "tagline_en": "Garden city getaway",
+    "cover_theme": "bay-garden",
+    "airports": ["SIN 樟宜机场"],
+    "transport": "直飞 / 中转 / 城市轨道",
+    "weather_sample": {"current": "30°C", "desc": "阵雨", "range": "27–32°C", "clothing": "短袖为主，随身雨具"},
+    "language": {"primary": "英语 / 华语 / 马来语 / 泰米尔语", "english": "英语通用", "hello": "Hello / 你好"},
+    "reminders": ["护照", "机票", "酒店预订", "电子入境卡", "eSIM", "保险", "转换头"]
+  },
+  "osaka": {
+    "tagline_zh": "美食、城景与关西旅行起点。",
+    "tagline_en": "Kansai food and fun",
+    "cover_theme": "castle-city",
+    "airports": ["KIX 关西国际机场", "ITM 伊丹机场"],
+    "transport": "直飞 / 中转 / 关西铁路",
+    "weather_sample": {"current": "25°C", "desc": "多云", "range": "22–30°C", "clothing": "轻装，备薄外套"},
+    "language": {"primary": "日语为主", "english": "热门区域英语基础可用", "hello": "Konnichiwa（你好）"},
+    "reminders": ["护照", "机票", "酒店预订", "官方入口", "eSIM", "保险", "交通卡"]
+  },
+  "kuala-lumpur": {
+    "tagline_zh": "热带城市、夜景与多元文化。",
+    "tagline_en": "Tropical city lights",
+    "cover_theme": "twin-towers",
+    "airports": ["KUL 吉隆坡国际机场"],
+    "transport": "直飞 / 中转 / 机场快线",
+    "weather_sample": {"current": "30°C", "desc": "雷阵雨", "range": "25–32°C", "clothing": "轻装，带雨具"},
+    "language": {"primary": "马来语为主", "english": "英语基础可用", "hello": "Selamat sejahtera（你好）"},
+    "reminders": ["护照", "机票", "酒店预订", "官方入口", "eSIM", "保险", "转换头"]
+  },
+  "bali": {
+    "tagline_zh": "海岛、稻田与慢节奏假期。",
+    "tagline_en": "Island mood and sunsets",
+    "cover_theme": "island-temple",
+    "airports": ["DPS 伍拉赖国际机场"],
+    "transport": "直飞 / 中转 / 包车接驳",
+    "weather_sample": {"current": "29°C", "desc": "晴间多云", "range": "25–31°C", "clothing": "夏装，注意防晒"},
+    "language": {"primary": "印尼语为主", "english": "旅游区英语基础可用", "hello": "Halo（你好）"},
+    "reminders": ["护照", "机票", "酒店预订", "官方入口", "eSIM", "保险", "防晒"]
+  },
+  "seoul": {
+    "tagline_zh": "潮流街区、传统宫殿与便利交通。",
+    "tagline_en": "Trends, palaces and cafés",
+    "cover_theme": "palace-city",
+    "airports": ["ICN 仁川机场", "GMP 金浦机场"],
+    "transport": "直飞 / 中转 / 机场铁路",
+    "weather_sample": {"current": "23°C", "desc": "晴", "range": "20–28°C", "clothing": "轻便衣物，晚间薄外套"},
+    "language": {"primary": "韩语为主", "english": "热门区域英语基础可用", "hello": "Annyeonghaseyo（你好）"},
+    "reminders": ["护照", "机票", "酒店预订", "官方入口", "eSIM", "保险", "交通卡"]
+  },
+  "dubai": {
+    "tagline_zh": "沙漠天际线与中转旅行热门地。",
+    "tagline_en": "Skyline and desert stopover",
+    "cover_theme": "desert-skyline",
+    "airports": ["DXB 迪拜国际机场", "DWC 阿勒马克图姆机场"],
+    "transport": "直飞 / 中转 / 地铁与打车",
+    "weather_sample": {"current": "36°C", "desc": "晴", "range": "31–39°C", "clothing": "夏装，注意防晒补水"},
+    "language": {"primary": "阿拉伯语为主", "english": "英语广泛可用", "hello": "Hello / Marhaba（你好）"},
+    "reminders": ["护照", "机票", "酒店预订", "官方入口", "eSIM", "保险", "防晒"]
+  }
+}

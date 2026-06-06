@@ -1,0 +1,9 @@
+{
+  "thailand": {"currency": "THB 泰铢", "rate": "1 CNY ≈ 4.9 THB", "methods": "现金 / 刷卡 / 移动支付", "tip": "汇率仅供参考，实际以银行或兑换机构为准。"},
+  "japan": {"currency": "JPY 日元", "rate": "1 CNY ≈ 21 JPY", "methods": "现金 / 刷卡 / 交通卡", "tip": "汇率仅供参考，实际以银行或兑换机构为准。"},
+  "singapore": {"currency": "SGD 新加坡元", "rate": "1 CNY ≈ 0.18 SGD", "methods": "刷卡 / 现金 / 移动支付", "tip": "汇率仅供参考，实际以银行或兑换机构为准。"},
+  "malaysia": {"currency": "MYR 林吉特", "rate": "1 CNY ≈ 0.65 MYR", "methods": "现金 / 刷卡 / 移动支付", "tip": "汇率仅供参考，实际以银行或兑换机构为准。"},
+  "indonesia": {"currency": "IDR 印尼盾", "rate": "1 CNY ≈ 2250 IDR", "methods": "现金 / 刷卡 / 移动支付", "tip": "汇率仅供参考，实际以银行或兑换机构为准。"},
+  "south-korea": {"currency": "KRW 韩元", "rate": "1 CNY ≈ 190 KRW", "methods": "刷卡 / 现金 / 移动支付", "tip": "汇率仅供参考，实际以银行或兑换机构为准。"},
+  "uae": {"currency": "AED 迪拉姆", "rate": "1 CNY ≈ 0.51 AED", "methods": "刷卡 / 现金 / 移动支付", "tip": "汇率仅供参考，实际以银行或兑换机构为准。"}
+}

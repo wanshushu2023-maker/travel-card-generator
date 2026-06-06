@@ -1,0 +1,10 @@
+[
+  {"city": "曼谷", "city_en": "Bangkok", "country": "Thailand", "slug": "bangkok", "emoji": "🏯", "priority": 1},
+  {"city": "东京", "city_en": "Tokyo", "country": "Japan", "slug": "tokyo", "emoji": "🗼", "priority": 2},
+  {"city": "新加坡", "city_en": "Singapore", "country": "Singapore", "slug": "singapore", "emoji": "🦁", "priority": 3},
+  {"city": "大阪", "city_en": "Osaka", "country": "Japan", "slug": "osaka", "emoji": "🏯", "priority": 4},
+  {"city": "吉隆坡", "city_en": "Kuala Lumpur", "country": "Malaysia", "slug": "kuala-lumpur", "emoji": "🏙️", "priority": 5},
+  {"city": "巴厘岛", "city_en": "Bali", "country": "Indonesia", "slug": "bali", "emoji": "🌴", "priority": 6},
+  {"city": "首尔", "city_en": "Seoul", "country": "South Korea", "slug": "seoul", "emoji": "🏙️", "priority": 7},
+  {"city": "迪拜", "city_en": "Dubai", "country": "United Arab Emirates", "slug": "dubai", "emoji": "🌆", "priority": 8}
+]

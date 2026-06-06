@@ -1,0 +1,9 @@
+{
+  "thailand": {"type": "Type A / C", "voltage": "220V"},
+  "japan": {"type": "Type A / B", "voltage": "100V"},
+  "singapore": {"type": "Type G", "voltage": "230V"},
+  "malaysia": {"type": "Type G", "voltage": "240V"},
+  "indonesia": {"type": "Type C / F", "voltage": "230V"},
+  "south-korea": {"type": "Type C / F", "voltage": "220V"},
+  "uae": {"type": "Type G", "voltage": "230V"}
+}

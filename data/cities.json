@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "bangkok",
+    "name_zh": "曼谷",
+    "name_en": "Bangkok",
+    "country_slug": "thailand",
+    "country_zh": "泰国",
+    "country_en": "Thailand",
+    "timezone": "Asia/Bangkok",
+    "emoji": "🏯",
+    "flag": "🇹🇭",
+    "aliases": ["曼谷", "bangkok", "bkk", "กรุงเทพ"]
+  },
+  {
+    "slug": "tokyo",
+    "name_zh": "东京",
+    "name_en": "Tokyo",
+    "country_slug": "japan",
+    "country_zh": "日本",
+    "country_en": "Japan",
+    "timezone": "Asia/Tokyo",
+    "emoji": "🗼",
+    "flag": "🇯🇵",
+    "aliases": ["东京", "東京", "tokyo"]
+  },
+  {
+    "slug": "singapore",
+    "name_zh": "新加坡",
+    "name_en": "Singapore",
+    "country_slug": "singapore",
+    "country_zh": "新加坡",
+    "country_en": "Singapore",
+    "timezone": "Asia/Singapore",
+    "emoji": "🦁",
+    "flag": "🇸🇬",
+    "aliases": ["新加坡", "singapore", "sg"]
+  },
+  {
+    "slug": "osaka",
+    "name_zh": "大阪",
+    "name_en": "Osaka",
+    "country_slug": "japan",
+    "country_zh": "日本",
+    "country_en": "Japan",
+    "timezone": "Asia/Tokyo",
+    "emoji": "🏯",
+    "flag": "🇯🇵",
+    "aliases": ["大阪", "osaka"]
+  },
+  {
+    "slug": "kuala-lumpur",
+    "name_zh": "吉隆坡",
+    "name_en": "Kuala Lumpur",
+    "country_slug": "malaysia",
+    "country_zh": "马来西亚",
+    "country_en": "Malaysia",
+    "timezone": "Asia/Kuala_Lumpur",
+    "emoji": "🏙️",
+    "flag": "🇲🇾",
+    "aliases": ["吉隆坡", "kuala lumpur", "kl", "kuala-lumpur"]
+  },
+  {
+    "slug": "bali",
+    "name_zh": "巴厘岛",
+    "name_en": "Bali",
+    "country_slug": "indonesia",
+    "country_zh": "印度尼西亚",
+    "country_en": "Indonesia",
+    "timezone": "Asia/Makassar",
+    "emoji": "🌴",
+    "flag": "🇮🇩",
+    "aliases": ["巴厘岛", "bali"]
+  },
+  {
+    "slug": "seoul",
+    "name_zh": "首尔",
+    "name_en": "Seoul",
+    "country_slug": "south-korea",
+    "country_zh": "韩国",
+    "country_en": "South Korea",
+    "timezone": "Asia/Seoul",
+    "emoji": "🏙️",
+    "flag": "🇰🇷",
+    "aliases": ["首尔", "서울", "seoul"]
+  },
+  {
+    "slug": "dubai",
+    "name_zh": "迪拜",
+    "name_en": "Dubai",
+    "country_slug": "uae",
+    "country_zh": "阿联酋",
+    "country_en": "United Arab Emirates",
+    "timezone": "Asia/Dubai",
+    "emoji": "🌆",
+    "flag": "🇦🇪",
+    "aliases": ["迪拜", "dubai"]
+  }
+]

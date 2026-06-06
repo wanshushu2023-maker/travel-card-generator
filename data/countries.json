@@ -1,0 +1,9 @@
+[
+  {"slug": "thailand", "name_zh": "泰国", "name_en": "Thailand", "currency": "THB", "currency_zh": "泰铢"},
+  {"slug": "japan", "name_zh": "日本", "name_en": "Japan", "currency": "JPY", "currency_zh": "日元"},
+  {"slug": "singapore", "name_zh": "新加坡", "name_en": "Singapore", "currency": "SGD", "currency_zh": "新加坡元"},
+  {"slug": "malaysia", "name_zh": "马来西亚", "name_en": "Malaysia", "currency": "MYR", "currency_zh": "林吉特"},
+  {"slug": "indonesia", "name_zh": "印度尼西亚", "name_en": "Indonesia", "currency": "IDR", "currency_zh": "印尼盾"},
+  {"slug": "south-korea", "name_zh": "韩国", "name_en": "South Korea", "currency": "KRW", "currency_zh": "韩元"},
+  {"slug": "uae", "name_zh": "阿联酋", "name_en": "United Arab Emirates", "currency": "AED", "currency_zh": "迪拉姆"}
+]

@@ -1,0 +1,44 @@
+{
+  "thailand": {
+    "official_entry": "泰国移民局 / 外交部官方入口",
+    "arrival_card": "电子入境卡 TDAC",
+    "visa": "签证 / eVisa 入口按护照与行程类型确认",
+    "notice": "政策可能变化，请出行前再次确认。"
+  },
+  "japan": {
+    "official_entry": "日本出入国在留管理厅 / Visit Japan Web",
+    "arrival_card": "Visit Japan Web 可预填入境与海关信息",
+    "visa": "签证要求按护照与停留目的确认",
+    "notice": "政策可能变化，请以官方信息为准。"
+  },
+  "singapore": {
+    "official_entry": "新加坡移民与关卡局 ICA",
+    "arrival_card": "SG Arrival Card",
+    "visa": "签证要求按护照与停留目的确认",
+    "notice": "政策可能变化，请出行前再次确认。"
+  },
+  "malaysia": {
+    "official_entry": "马来西亚移民局官方入口",
+    "arrival_card": "电子入境卡 MDAC",
+    "visa": "签证 / eVisa 入口按护照与行程类型确认",
+    "notice": "政策可能变化，请以官方信息为准。"
+  },
+  "indonesia": {
+    "official_entry": "印尼移民局官方入口",
+    "arrival_card": "电子海关申报 / 入境信息按官方要求确认",
+    "visa": "落地签 / eVisa 要求按护照与行程类型确认",
+    "notice": "政策可能变化，请出行前再次确认。"
+  },
+  "south-korea": {
+    "official_entry": "韩国出入境官方入口",
+    "arrival_card": "入境申报 / Q-CODE 等要求按官方说明确认",
+    "visa": "K-ETA / 签证要求按护照与行程类型确认",
+    "notice": "政策可能变化，请以官方信息为准。"
+  },
+  "uae": {
+    "official_entry": "阿联酋官方入境与签证入口",
+    "arrival_card": "入境要求按机场与官方说明确认",
+    "visa": "签证 / 落地签资格按护照与行程类型确认",
+    "notice": "政策可能变化，请出行前再次确认。"
+  }
+}
