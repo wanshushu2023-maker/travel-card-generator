@@ -1,25 +1,70 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import TravelCard from "@/components/TravelCard";
-import { cities, findCity } from "@/data/cities";
+import { cities, departurePlaces, findCity, findDepartureByTimezone, findDeparturePlace } from "@/data/cities";
+
+function detectDepartureSlug() {
+  try {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    return findDepartureByTimezone(timezone).slug;
+  } catch {
+    return "mainland-china";
+  }
+}
 
 export default function HomeClient() {
-  const [from, setFrom] = useState("东京 Tokyo");
+  const [fromSlug, setFromSlug] = useState("mainland-china");
   const [draftDestination, setDraftDestination] = useState("bangkok");
   const [activeDestination, setActiveDestination] = useState("bangkok");
   const [date, setDate] = useState("2026-07-18");
+  const [flightPrice, setFlightPrice] = useState(null);
+  const [flightPriceError, setFlightPriceError] = useState("");
+  const [isFlightPriceLoading, setIsFlightPriceLoading] = useState(false);
 
   const city = useMemo(() => findCity(activeDestination), [activeDestination]);
+  const departure = useMemo(() => findDeparturePlace(fromSlug), [fromSlug]);
 
-  function generateInfo(event) {
+  useEffect(() => {
+    setFromSlug(detectDepartureSlug());
+  }, []);
+
+  async function fetchFlightPrice(destinationSlug = draftDestination, departureSlug = fromSlug, departureDate = date) {
+    const nextCity = findCity(destinationSlug);
+    const nextDeparture = findDeparturePlace(departureSlug);
+    setIsFlightPriceLoading(true);
+    setFlightPriceError("");
+
+    try {
+      const params = new URLSearchParams({
+        origin: nextDeparture.airportCode,
+        destination: nextCity.airportCode,
+        departureDate,
+        adults: "1"
+      });
+      const response = await fetch(`/api/flight-prices?${params.toString()}`);
+      if (!response.ok) throw new Error("flight price request failed");
+      const data = await response.json();
+      if (data.error) throw new Error(data.error);
+      setFlightPrice(data);
+    } catch {
+      setFlightPrice(null);
+      setFlightPriceError("暂未获取到实时价格，请前往出票平台查询");
+    } finally {
+      setIsFlightPriceLoading(false);
+    }
+  }
+
+  async function generateInfo(event) {
     event.preventDefault();
     setActiveDestination(draftDestination);
+    await fetchFlightPrice(draftDestination, fromSlug, date);
   }
 
   function chooseHotCity(slug) {
     setDraftDestination(slug);
     setActiveDestination(slug);
+    fetchFlightPrice(slug, fromSlug, date);
   }
 
   return (
@@ -37,7 +82,13 @@ export default function HomeClient() {
             <span className="app-field-icon text-[#0b65df]">⌖</span>
             <span className="app-field-body">
               <span className="app-field-label">已识别出发地：</span>
-              <input value={from} onChange={(event) => setFrom(event.target.value)} className="app-control" aria-label="已识别出发地" />
+              <select value={fromSlug} onChange={(event) => setFromSlug(event.target.value)} className="app-control" aria-label="已识别出发地">
+                {departurePlaces.map((place) => (
+                  <option key={place.slug} value={place.slug}>
+                    {place.label}
+                  </option>
+                ))}
+              </select>
             </span>
             <span className="text-sm font-bold text-[#6f7f93]">可修改</span>
           </label>
@@ -88,7 +139,7 @@ export default function HomeClient() {
       </section>
 
       <section className="mx-auto mt-7 w-[min(1180px,calc(100%-32px))]">
-        <TravelCard city={city} from={from} date={date} shareUrl={`https://example.com/card?to=${city.slug}`} />
+        <TravelCard city={city} departure={departure} date={date} shareUrl={`https://example.com/card?from=${fromSlug}&to=${city.slug}&date=${date}`} flightPrice={flightPrice} flightPriceError={flightPriceError} isFlightPriceLoading={isFlightPriceLoading} />
       </section>
     </div>
   );

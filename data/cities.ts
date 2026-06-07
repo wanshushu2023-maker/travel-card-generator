@@ -1,14 +1,29 @@
+import generatedTravelContent from "@/data/generated/travel-content.json";
+
 export type City = {
   slug: string;
   country: string;
+  countryCode: string;
+  countryNameZh: string;
   city: string;
   cityNameZh: string;
   cityNameEn: string;
+  airportCode: string;
   locationText: string;
   timezone: string;
+  flyCities: string[];
   airports: string[];
+  visaOptions: string[];
+  visaRequirement?: string;
+  visaProcessingTime?: string;
+  visaStayDuration?: string;
+  flightPriceRanges: Record<string, string>;
+  feeNotes: string[];
+  flightSearchUrl: string;
+  hotelSearchUrl: string;
   transportWays: string[];
   entryTips: string[];
+  tdacUrl: string;
   currency: string;
   exchangeRate: string;
   paymentMethods: string[];
@@ -25,25 +40,146 @@ export type City = {
   accent: string;
 };
 
+export type DeparturePlace = {
+  slug: string;
+  label: string;
+  nameZh: string;
+  nameEn: string;
+  defaultCityZh: string;
+  defaultCityEn: string;
+  airportCode: string;
+  countryCode: string;
+  timezone: string;
+  timezoneAliases: string[];
+};
+
+export const departurePlaces: DeparturePlace[] = [
+  {
+    slug: "mainland-china",
+    label: "中国大陆 Mainland China",
+    nameZh: "中国大陆",
+    nameEn: "Mainland China",
+    defaultCityZh: "重庆",
+    defaultCityEn: "Chongqing",
+    airportCode: "CKG",
+    countryCode: "CN",
+    timezone: "Asia/Shanghai",
+    timezoneAliases: ["Asia/Shanghai", "Asia/Chongqing", "Asia/Harbin", "Asia/Urumqi"]
+  },
+  {
+    slug: "japan",
+    label: "日本 Japan",
+    nameZh: "日本",
+    nameEn: "Japan",
+    defaultCityZh: "东京",
+    defaultCityEn: "Tokyo",
+    airportCode: "NRT",
+    countryCode: "JP",
+    timezone: "Asia/Tokyo",
+    timezoneAliases: ["Asia/Tokyo"]
+  },
+  {
+    slug: "south-korea",
+    label: "韩国 South Korea",
+    nameZh: "韩国",
+    nameEn: "South Korea",
+    defaultCityZh: "首尔",
+    defaultCityEn: "Seoul",
+    airportCode: "ICN",
+    countryCode: "KR",
+    timezone: "Asia/Seoul",
+    timezoneAliases: ["Asia/Seoul"]
+  },
+  {
+    slug: "thailand",
+    label: "泰国 Thailand",
+    nameZh: "泰国",
+    nameEn: "Thailand",
+    defaultCityZh: "曼谷",
+    defaultCityEn: "Bangkok",
+    airportCode: "BKK",
+    countryCode: "TH",
+    timezone: "Asia/Bangkok",
+    timezoneAliases: ["Asia/Bangkok"]
+  },
+  {
+    slug: "singapore",
+    label: "新加坡 Singapore",
+    nameZh: "新加坡",
+    nameEn: "Singapore",
+    defaultCityZh: "新加坡",
+    defaultCityEn: "Singapore",
+    airportCode: "SIN",
+    countryCode: "SG",
+    timezone: "Asia/Singapore",
+    timezoneAliases: ["Asia/Singapore"]
+  },
+  {
+    slug: "malaysia",
+    label: "马来西亚 Malaysia",
+    nameZh: "马来西亚",
+    nameEn: "Malaysia",
+    defaultCityZh: "吉隆坡",
+    defaultCityEn: "Kuala Lumpur",
+    airportCode: "KUL",
+    countryCode: "MY",
+    timezone: "Asia/Kuala_Lumpur",
+    timezoneAliases: ["Asia/Kuala_Lumpur"]
+  },
+  {
+    slug: "indonesia",
+    label: "印度尼西亚 Indonesia",
+    nameZh: "印度尼西亚",
+    nameEn: "Indonesia",
+    defaultCityZh: "巴厘岛",
+    defaultCityEn: "Bali",
+    airportCode: "DPS",
+    countryCode: "ID",
+    timezone: "Asia/Jakarta",
+    timezoneAliases: ["Asia/Jakarta", "Asia/Makassar", "Asia/Jayapura"]
+  }
+];
+
 export const cities: City[] = [
   {
     slug: "bangkok",
     country: "Thailand",
+    countryCode: "TH",
+    countryNameZh: "泰国",
     city: "Bangkok",
     cityNameZh: "曼谷",
     cityNameEn: "Bangkok",
+    airportCode: "BKK",
     locationText: "Bangkok, Thailand",
     timezone: "Asia/Bangkok",
+    flyCities: ["曼谷", "清迈", "普吉", "苏梅", "董里"],
     airports: ["BKK 素万那普机场", "DMK 廊曼机场"],
+    visaOptions: ["免签 60天", "旅游签 60天"],
+    visaRequirement: "中国大陆普通护照短期旅游可按免签入境；停留更久或非旅游目的，请按出行目的办理相应签证。",
+    visaProcessingTime: "免签无需提前办签；旅游签通常建议预留 5-10 个工作日，具体以使领馆或签证中心为准。",
+    visaStayDuration: "免签通常可停留 60 天；旅游签常见为 60 天，能否延期以泰国移民局要求为准。",
+    flightPriceRanges: {
+      "mainland-china": "约 ¥800-¥2500",
+      japan: "约 ¥900-¥2600",
+      "south-korea": "约 ¥900-¥2400",
+      singapore: "约 ¥500-¥1600",
+      malaysia: "约 ¥400-¥1400",
+      indonesia: "约 ¥700-¥2200",
+      thailand: "约 ¥200-¥900"
+    },
+    feeNotes: ["泰国游客入境费 / 旅游税确实有 300 泰铢的政策规划，截至今天还没有执行。", "请出行前以泰国官方最新公告和航司 / 订票平台订单页为准。"],
+    flightSearchUrl: "https://www.google.com/travel/flights",
+    hotelSearchUrl: "https://www.google.com/travel/hotels",
     transportWays: ["直飞", "中转", "联运查询"],
-    entryTips: ["查看官方入境要求", "电子入境卡 / 官方入口", "政策可能随时变化，请以官方信息为准"],
+    entryTips: ["个人需准备 20,000 泰铢现金或等值货币", "家庭需准备 40,000 泰铢现金或等值货币", "入境需填写 TDAC 电子入境卡", "准备回程机票预订单和酒店预订单"],
+    tdacUrl: "https://tdac.immigration.go.th/",
     currency: "THB 泰铢",
     exchangeRate: "1 CNY ≈ 4.9 THB",
     paymentMethods: ["现金", "VISA", "Mastercard", "支付宝", "微信支付"],
-    weather: "小雨",
-    temperature: "31°C",
-    temperatureRange: "28-33°C",
-    clothingTip: "轻装，带雨具；商场和 BTS 空调较冷，可备薄外套",
+    weather: "局部晴朗",
+    temperature: "33°C",
+    temperatureRange: "28-35°C",
+    clothingTip: "高 UV，注意防晒补水；未来几天有阵雨，随身带伞；商场和 BTS 空调较冷，可备薄外套",
     language: ["泰语", "英语基础可用"],
     plug: "Type A / C",
     voltage: "220V",
@@ -55,14 +191,32 @@ export const cities: City[] = [
   {
     slug: "tokyo",
     country: "Japan",
+    countryCode: "JP",
+    countryNameZh: "日本",
     city: "Tokyo",
     cityNameZh: "东京",
     cityNameEn: "Tokyo",
+    airportCode: "NRT",
     locationText: "Tokyo, Japan",
     timezone: "Asia/Tokyo",
+    flyCities: ["东京", "大阪", "札幌", "福冈", "冲绳"],
     airports: ["HND 羽田机场", "NRT 成田机场"],
+    visaOptions: ["按护照与出发地确认签证要求"],
+    flightPriceRanges: {
+      "mainland-china": "约 ¥1200-¥3500",
+      japan: "约 ¥300-¥1200",
+      "south-korea": "约 ¥700-¥2200",
+      singapore: "约 ¥1500-¥4200",
+      malaysia: "约 ¥1400-¥3900",
+      indonesia: "约 ¥1600-¥4600",
+      thailand: "约 ¥1200-¥3800"
+    },
+    feeNotes: ["机票价格浮动，请以实际查询为准", "税费、机场建设费、燃油附加费等以航司和订票平台订单页为准", "入境相关费用请以官方最新要求为准"],
+    flightSearchUrl: "https://www.google.com/travel/flights",
+    hotelSearchUrl: "https://www.google.com/travel/hotels",
     transportWays: ["直飞", "中转", "机场铁路"],
     entryTips: ["查看官方入境要求", "Visit Japan Web / 官方入口", "签证与入境政策请以官方信息为准"],
+    tdacUrl: "https://www.vjw.digital.go.jp/",
     currency: "JPY 日元",
     exchangeRate: "1 CNY ≈ 21 JPY",
     paymentMethods: ["现金", "VISA", "Mastercard", "交通卡", "移动支付"],
@@ -81,14 +235,32 @@ export const cities: City[] = [
   {
     slug: "singapore",
     country: "Singapore",
+    countryCode: "SG",
+    countryNameZh: "新加坡",
     city: "Singapore",
     cityNameZh: "新加坡",
     cityNameEn: "Singapore",
+    airportCode: "SIN",
     locationText: "Singapore, Singapore",
     timezone: "Asia/Singapore",
+    flyCities: ["新加坡"],
     airports: ["SIN 樟宜机场"],
+    visaOptions: ["按护照与出发地确认签证要求"],
+    flightPriceRanges: {
+      "mainland-china": "约 ¥900-¥2800",
+      japan: "约 ¥1400-¥4200",
+      "south-korea": "约 ¥1300-¥3900",
+      singapore: "本地出发",
+      malaysia: "约 ¥300-¥1200",
+      indonesia: "约 ¥500-¥1600",
+      thailand: "约 ¥600-¥1800"
+    },
+    feeNotes: ["机票价格浮动，请以实际查询为准", "税费、机场建设费、燃油附加费等以航司和订票平台订单页为准", "入境相关费用请以官方最新要求为准"],
+    flightSearchUrl: "https://www.google.com/travel/flights",
+    hotelSearchUrl: "https://www.google.com/travel/hotels",
     transportWays: ["直飞", "中转", "地铁接驳"],
     entryTips: ["查看官方入境要求", "SG Arrival Card / 官方入口", "政策可能随时变化，请以官方信息为准"],
+    tdacUrl: "https://eservices.ica.gov.sg/sgarrivalcard/",
     currency: "SGD 新加坡元",
     exchangeRate: "1 CNY ≈ 0.18 SGD",
     paymentMethods: ["现金", "VISA", "Mastercard", "支付宝", "微信支付"],
@@ -107,14 +279,32 @@ export const cities: City[] = [
   {
     slug: "osaka",
     country: "Japan",
+    countryCode: "JP",
+    countryNameZh: "日本",
     city: "Osaka",
     cityNameZh: "大阪",
     cityNameEn: "Osaka",
+    airportCode: "KIX",
     locationText: "Osaka, Japan",
     timezone: "Asia/Tokyo",
+    flyCities: ["东京", "大阪", "札幌", "福冈", "冲绳"],
     airports: ["KIX 关西国际机场", "ITM 伊丹机场"],
+    visaOptions: ["按护照与出发地确认签证要求"],
+    flightPriceRanges: {
+      "mainland-china": "约 ¥1100-¥3300",
+      japan: "约 ¥300-¥1200",
+      "south-korea": "约 ¥700-¥2200",
+      singapore: "约 ¥1500-¥4200",
+      malaysia: "约 ¥1400-¥3900",
+      indonesia: "约 ¥1600-¥4600",
+      thailand: "约 ¥1200-¥3800"
+    },
+    feeNotes: ["机票价格浮动，请以实际查询为准", "税费、机场建设费、燃油附加费等以航司和订票平台订单页为准", "入境相关费用请以官方最新要求为准"],
+    flightSearchUrl: "https://www.google.com/travel/flights",
+    hotelSearchUrl: "https://www.google.com/travel/hotels",
     transportWays: ["直飞", "中转", "关西铁路"],
     entryTips: ["查看官方入境要求", "Visit Japan Web / 官方入口", "签证与入境政策请以官方信息为准"],
+    tdacUrl: "https://www.vjw.digital.go.jp/",
     currency: "JPY 日元",
     exchangeRate: "1 CNY ≈ 21 JPY",
     paymentMethods: ["现金", "VISA", "Mastercard", "交通卡", "移动支付"],
@@ -133,14 +323,32 @@ export const cities: City[] = [
   {
     slug: "kuala-lumpur",
     country: "Malaysia",
+    countryCode: "MY",
+    countryNameZh: "马来西亚",
     city: "Kuala Lumpur",
     cityNameZh: "吉隆坡",
     cityNameEn: "Kuala Lumpur",
+    airportCode: "KUL",
     locationText: "Kuala Lumpur, Malaysia",
     timezone: "Asia/Kuala_Lumpur",
+    flyCities: ["吉隆坡", "槟城", "兰卡威", "亚庇", "古晋"],
     airports: ["KUL 吉隆坡国际机场"],
+    visaOptions: ["按护照与出发地确认签证要求"],
+    flightPriceRanges: {
+      "mainland-china": "约 ¥800-¥2600",
+      japan: "约 ¥1500-¥4200",
+      "south-korea": "约 ¥1300-¥3900",
+      singapore: "约 ¥300-¥1200",
+      malaysia: "约 ¥200-¥900",
+      indonesia: "约 ¥600-¥1800",
+      thailand: "约 ¥500-¥1600"
+    },
+    feeNotes: ["机票价格浮动，请以实际查询为准", "税费、机场建设费、燃油附加费等以航司和订票平台订单页为准", "入境相关费用请以官方最新要求为准"],
+    flightSearchUrl: "https://www.google.com/travel/flights",
+    hotelSearchUrl: "https://www.google.com/travel/hotels",
     transportWays: ["直飞", "中转", "机场快线"],
     entryTips: ["查看官方入境要求", "MDAC 电子入境卡 / 官方入口", "政策可能随时变化，请以官方信息为准"],
+    tdacUrl: "https://imigresen-online.imi.gov.my/mdac/main",
     currency: "MYR 林吉特",
     exchangeRate: "1 CNY ≈ 0.65 MYR",
     paymentMethods: ["现金", "VISA", "Mastercard", "支付宝", "移动支付"],
@@ -159,14 +367,32 @@ export const cities: City[] = [
   {
     slug: "bali",
     country: "Indonesia",
+    countryCode: "ID",
+    countryNameZh: "印度尼西亚",
     city: "Bali",
     cityNameZh: "巴厘岛",
     cityNameEn: "Bali",
+    airportCode: "DPS",
     locationText: "Bali, Indonesia",
     timezone: "Asia/Makassar",
+    flyCities: ["巴厘岛", "雅加达", "泗水", "日惹", "棉兰"],
     airports: ["DPS 伍拉赖国际机场"],
+    visaOptions: ["按护照与出发地确认签证要求"],
+    flightPriceRanges: {
+      "mainland-china": "约 ¥1300-¥4200",
+      japan: "约 ¥1700-¥4800",
+      "south-korea": "约 ¥1600-¥4500",
+      singapore: "约 ¥700-¥2200",
+      malaysia: "约 ¥700-¥2200",
+      indonesia: "约 ¥300-¥1400",
+      thailand: "约 ¥1000-¥3200"
+    },
+    feeNotes: ["机票价格浮动，请以实际查询为准", "税费、机场建设费、燃油附加费等以航司和订票平台订单页为准", "入境相关费用请以官方最新要求为准"],
+    flightSearchUrl: "https://www.google.com/travel/flights",
+    hotelSearchUrl: "https://www.google.com/travel/hotels",
     transportWays: ["直飞", "中转", "包车接驳"],
     entryTips: ["查看官方入境要求", "电子海关申报 / 官方入口", "政策可能随时变化，请以官方信息为准"],
+    tdacUrl: "https://ecd.beacukai.go.id/",
     currency: "IDR 印尼盾",
     exchangeRate: "1 CNY ≈ 2250 IDR",
     paymentMethods: ["现金", "VISA", "Mastercard", "移动支付"],
@@ -185,5 +411,25 @@ export const cities: City[] = [
 ];
 
 export function findCity(slug: string) {
-  return cities.find((city) => city.slug === slug) ?? cities[0];
+  const city = cities.find((item) => item.slug === slug) ?? cities[0];
+  const generated = generatedTravelContent.destinations?.[city.slug] ?? {};
+  return {
+    ...city,
+    airports: generated.airports?.length ? generated.airports : city.airports,
+    visaOptions: generated.visaOptions?.length ? generated.visaOptions : city.visaOptions,
+    flightPriceRanges: generated.flightPriceRanges ? { ...city.flightPriceRanges, ...generated.flightPriceRanges } : city.flightPriceRanges,
+    feeNotes: generated.feeNotes?.length ? generated.feeNotes : city.feeNotes,
+    entryTips: generated.entryTips?.length ? generated.entryTips : city.entryTips,
+    tdacUrl: generated.tdacUrl || city.tdacUrl,
+    flightSearchUrl: generated.flightSearchUrl || city.flightSearchUrl,
+    hotelSearchUrl: generated.hotelSearchUrl || city.hotelSearchUrl
+  };
+}
+
+export function findDeparturePlace(slug: string) {
+  return departurePlaces.find((place) => place.slug === slug) ?? departurePlaces[0];
+}
+
+export function findDepartureByTimezone(timezone: string) {
+  return departurePlaces.find((place) => place.timezoneAliases.includes(timezone)) ?? departurePlaces[0];
 }
