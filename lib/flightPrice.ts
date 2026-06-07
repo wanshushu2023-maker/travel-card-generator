@@ -1,4 +1,5 @@
 import { searchAmadeusFlightOffers } from "@/lib/flightProviders/amadeus";
+import { searchSerpApiGoogleFlights } from "@/lib/flightProviders/serpapiGoogleFlights";
 
 export type FlightPriceRange = {
   origin: string;
@@ -22,15 +23,23 @@ type FlightPriceParams = {
 };
 
 export async function getFlightPriceRange({ origin, destination, departureDate, adults = 1 }: FlightPriceParams): Promise<FlightPriceRange> {
-  const result = await searchAmadeusFlightOffers({
-    origin,
-    destination,
-    departureDate,
-    adults
-  });
+  try {
+    const result = await searchAmadeusFlightOffers({
+      origin,
+      destination,
+      departureDate,
+      adults
+    });
 
-  return {
-    ...result,
-    isTestData: process.env.AMADEUS_ENV !== "production"
-  };
+    return {
+      ...result,
+      isTestData: process.env.AMADEUS_ENV !== "production"
+    };
+  } catch {
+    return searchSerpApiGoogleFlights({
+      origin,
+      destination,
+      departureDate
+    });
+  }
 }
