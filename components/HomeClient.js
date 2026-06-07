@@ -9,12 +9,12 @@ function detectDepartureSlug() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     return findDepartureByTimezone(timezone).slug;
   } catch {
-    return "mainland-china";
+    return "china-chongqing";
   }
 }
 
 export default function HomeClient() {
-  const [fromSlug, setFromSlug] = useState("mainland-china");
+  const [fromSlug, setFromSlug] = useState("china-chongqing");
   const [draftDestination, setDraftDestination] = useState("bangkok");
   const [activeDestination, setActiveDestination] = useState("bangkok");
   const [date, setDate] = useState("2026-07-18");
@@ -100,7 +100,7 @@ export default function HomeClient() {
               <select value={draftDestination} onChange={(event) => setDraftDestination(event.target.value)} className="app-control" aria-label="目的地">
                 {cities.map((item) => (
                   <option key={item.slug} value={item.slug}>
-                    {item.cityNameZh} {item.cityNameEn}
+                    {item.countryNameZh} · {item.cityNameZh} {item.cityNameEn}
                   </option>
                 ))}
               </select>
@@ -139,7 +139,7 @@ export default function HomeClient() {
       </section>
 
       <section className="mx-auto mt-7 w-[min(1180px,calc(100%-32px))]">
-        <TravelCard city={city} departure={departure} date={date} shareUrl={`https://example.com/card?from=${fromSlug}&to=${city.slug}&date=${date}`} flightPrice={flightPrice} flightPriceError={flightPriceError} isFlightPriceLoading={isFlightPriceLoading} />
+        <TravelCard city={city} departure={departure} date={date} flightPrice={flightPrice} flightPriceError={flightPriceError} isFlightPriceLoading={isFlightPriceLoading} />
       </section>
     </div>
   );

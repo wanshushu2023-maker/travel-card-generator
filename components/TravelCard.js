@@ -42,22 +42,6 @@ function formatTimeDifference(destinationTimezone, departure) {
   }
 }
 
-function FakeQr({ value }) {
-  let seed = 2166136261;
-  for (let i = 0; i < value.length; i += 1) seed = Math.imul(seed ^ value.charCodeAt(i), 16777619);
-  return (
-    <div className="qr-box" aria-label="二维码占位">
-      {Array.from({ length: 441 }, (_, index) => {
-        const x = index % 21;
-        const y = Math.floor(index / 21);
-        const finder = (x < 6 && y < 6) || (x > 14 && y < 6) || (x < 6 && y > 14);
-        seed = Math.imul(seed + index * 17, 1664525);
-        return <span key={index} className={finder || seed % 9 < 4 ? "bg-black" : "bg-white"} />;
-      })}
-    </div>
-  );
-}
-
 function FieldRow({ label, value, accent = false }) {
   return (
     <div className="flex items-center justify-between gap-4 border-b border-[#e8f1f8] py-2 last:border-b-0">
@@ -90,6 +74,18 @@ function ActionButton({ children, href }) {
 function buildFlightSearchUrl(departure, city, date) {
   const query = `${departure.nameZh}到${city.cityNameZh} ${date} 机票`;
   return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+}
+
+function getFlightPriceRangeLabel(city, departure) {
+  if (city.flightPriceRanges?.[departure.slug]) return city.flightPriceRanges[departure.slug];
+  if (departure.countryCode === "CN") return city.flightPriceRanges?.["mainland-china"] ?? "请查询实时价格";
+  if (departure.countryCode === "JP") return city.flightPriceRanges?.japan ?? "请查询实时价格";
+  if (departure.countryCode === "KR") return city.flightPriceRanges?.["south-korea"] ?? "请查询实时价格";
+  if (departure.countryCode === "SG") return city.flightPriceRanges?.singapore ?? "请查询实时价格";
+  if (departure.countryCode === "MY") return city.flightPriceRanges?.malaysia ?? "请查询实时价格";
+  if (departure.countryCode === "ID") return city.flightPriceRanges?.indonesia ?? "请查询实时价格";
+  if (departure.countryCode === "TH") return city.flightPriceRanges?.thailand ?? "请查询实时价格";
+  return "请查询实时价格";
 }
 
 function EntryLine({ children, href }) {
@@ -159,9 +155,9 @@ function BannerIllustration({ city }) {
   );
 }
 
-export default function TravelCard({ city, departure, date, shareUrl, flightPrice, flightPriceError, isFlightPriceLoading }) {
+export default function TravelCard({ city, departure, date, flightPrice, flightPriceError, isFlightPriceLoading }) {
   const timeDifference = formatTimeDifference(city.timezone, departure);
-  const flightPriceRange = city.flightPriceRanges?.[departure.slug] ?? "请查询实时价格";
+  const flightPriceRange = getFlightPriceRangeLabel(city, departure);
   const flightSearchUrl = buildFlightSearchUrl(departure, city, date);
   const feeNotice = ["泰国游客入境费 / 旅游税确实有 300 泰铢的政策规划，截至今天还没有执行。", "请出行前以泰国官方最新公告和航司/订票平台订单页为准。"];
 
@@ -201,7 +197,7 @@ export default function TravelCard({ city, departure, date, shareUrl, flightPric
           <FieldRow label="时差" value={timeDifference} accent />
         </InfoModule>
 
-        <InfoModule icon="✈" title="机票查询" className="col-span-4 max-lg:col-span-6 max-md:col-span-12">
+        <InfoModule icon="✈" title="机票查询" className="col-span-8 max-lg:col-span-12">
           <div className="grid gap-3">
             <MiniSection title="直飞的机场">
               <ul className="grid gap-2 text-sm font-bold leading-6 text-[#314663]">
@@ -214,9 +210,16 @@ export default function TravelCard({ city, departure, date, shareUrl, flightPric
               </ul>
             </MiniSection>
 
-            <MiniSection title="机票">
-              <FieldRow label="参考区间" value={flightPriceRange} accent />
+            <MiniSection title="机票价格参考">
+              <FlightPriceReference
+                departureCityName={departure.defaultCityZh}
+                destinationCityName={city.cityNameZh}
+                flightPrice={flightPrice}
+                flightPriceError={flightPriceError}
+                isLoading={isFlightPriceLoading}
+              />
               <div className="mt-3 grid gap-2">
+                <FieldRow label="静态参考区间" value={flightPriceRange} accent />
                 <ActionButton href={flightSearchUrl}>去 Google Flights 查询</ActionButton>
                 <p className="text-xs font-bold leading-5 text-[#7c8da3]">航班价格和税费以出票页面为准。</p>
               </div>
@@ -234,16 +237,6 @@ export default function TravelCard({ city, departure, date, shareUrl, flightPric
               ))}
             </ul>
           </div>
-        </InfoModule>
-
-        <InfoModule icon="🎫" title="机票价格参考" className="col-span-4 max-lg:col-span-6 max-md:col-span-12">
-          <FlightPriceReference
-            departureCityName={departure.defaultCityZh}
-            destinationCityName={city.cityNameZh}
-            flightPrice={flightPrice}
-            flightPriceError={flightPriceError}
-            isLoading={isFlightPriceLoading}
-          />
         </InfoModule>
 
         <InfoModule icon="🛂" title="入境提示" className="col-span-4 max-lg:col-span-12">
@@ -287,8 +280,23 @@ export default function TravelCard({ city, departure, date, shareUrl, flightPric
           <FieldRow label="穿衣建议" value={city.clothingTip} />
         </InfoModule>
 
-        <InfoModule icon="6" title="语言" className="col-span-2 max-lg:col-span-4 max-md:col-span-6 max-sm:col-span-12">
-          <p className="text-lg font-black leading-8 text-[#263d62]">{city.language.join(" / ")}</p>
+        <InfoModule icon="6" title="语言" className="col-span-4 max-lg:col-span-6 max-md:col-span-12">
+          <div className="grid gap-3">
+            <p className="text-lg font-black leading-8 text-[#263d62]">{city.language.join(" / ")}</p>
+            {city.languagePhrases?.length ? (
+              <div className="rounded-[14px] bg-[#f6fbff] p-3">
+                <p className="mb-2 text-sm font-black text-[#66778d]">常用当地语言</p>
+                <ul className="grid gap-2 text-sm font-bold leading-6 text-[#314663]">
+                  {city.languagePhrases.map((phrase) => (
+                    <li key={phrase}>• {phrase}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+            <div className="rounded-[14px] bg-[#fffaf2] p-3 text-sm font-black leading-6 text-[#a36a13]">
+              建议提前下载：{(city.translationApps || ["Google 翻译 App"]).join(" / ")}
+            </div>
+          </div>
         </InfoModule>
 
         <DestinationPowerCard destinationCity={city.cityNameZh} destinationCountryCode={city.countryCode || ""} />
@@ -301,15 +309,6 @@ export default function TravelCard({ city, departure, date, shareUrl, flightPric
           </div>
         </InfoModule>
 
-        <InfoModule icon="▣" title="扫码分享此卡" className="col-span-4 max-lg:col-span-12">
-          <div className="flex items-center justify-center gap-5 max-sm:flex-col">
-            <FakeQr value={shareUrl} />
-            <div>
-              <p className="text-xl font-black text-[#102a56]">保存或分享给旅伴</p>
-              <p className="mt-2 max-w-[220px] font-bold leading-7 text-[#65758b]">扫码回到页面，查看当前目的地的旅行信息内容。</p>
-            </div>
-          </div>
-        </InfoModule>
       </section>
 
       <p className="mt-5 text-center text-sm font-bold text-[#72839a]">数据仅供参考，请以官方信息为准。</p>

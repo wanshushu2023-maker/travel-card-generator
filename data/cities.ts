@@ -32,6 +32,8 @@ export type City = {
   temperatureRange: string;
   clothingTip: string;
   language: string[];
+  languagePhrases?: string[];
+  translationApps?: string[];
   plug: string;
   voltage: string;
   departureChecklist: string[];
@@ -55,9 +57,9 @@ export type DeparturePlace = {
 
 export const departurePlaces: DeparturePlace[] = [
   {
-    slug: "mainland-china",
-    label: "中国大陆 Mainland China",
-    nameZh: "中国大陆",
+    slug: "china-chongqing",
+    label: "中国 · 重庆 Chongqing (CKG)",
+    nameZh: "重庆",
     nameEn: "Mainland China",
     defaultCityZh: "重庆",
     defaultCityEn: "Chongqing",
@@ -67,10 +69,70 @@ export const departurePlaces: DeparturePlace[] = [
     timezoneAliases: ["Asia/Shanghai", "Asia/Chongqing", "Asia/Harbin", "Asia/Urumqi"]
   },
   {
-    slug: "japan",
-    label: "日本 Japan",
-    nameZh: "日本",
-    nameEn: "Japan",
+    slug: "china-shanghai",
+    label: "中国 · 上海 Shanghai (PVG)",
+    nameZh: "上海",
+    nameEn: "Shanghai",
+    defaultCityZh: "上海",
+    defaultCityEn: "Shanghai",
+    airportCode: "PVG",
+    countryCode: "CN",
+    timezone: "Asia/Shanghai",
+    timezoneAliases: ["Asia/Shanghai"]
+  },
+  {
+    slug: "china-beijing",
+    label: "中国 · 北京 Beijing (PEK)",
+    nameZh: "北京",
+    nameEn: "Beijing",
+    defaultCityZh: "北京",
+    defaultCityEn: "Beijing",
+    airportCode: "PEK",
+    countryCode: "CN",
+    timezone: "Asia/Shanghai",
+    timezoneAliases: ["Asia/Shanghai"]
+  },
+  {
+    slug: "china-guangzhou",
+    label: "中国 · 广州 Guangzhou (CAN)",
+    nameZh: "广州",
+    nameEn: "Guangzhou",
+    defaultCityZh: "广州",
+    defaultCityEn: "Guangzhou",
+    airportCode: "CAN",
+    countryCode: "CN",
+    timezone: "Asia/Shanghai",
+    timezoneAliases: ["Asia/Shanghai"]
+  },
+  {
+    slug: "china-shenzhen",
+    label: "中国 · 深圳 Shenzhen (SZX)",
+    nameZh: "深圳",
+    nameEn: "Shenzhen",
+    defaultCityZh: "深圳",
+    defaultCityEn: "Shenzhen",
+    airportCode: "SZX",
+    countryCode: "CN",
+    timezone: "Asia/Shanghai",
+    timezoneAliases: ["Asia/Shanghai"]
+  },
+  {
+    slug: "china-chengdu",
+    label: "中国 · 成都 Chengdu (TFU)",
+    nameZh: "成都",
+    nameEn: "Chengdu",
+    defaultCityZh: "成都",
+    defaultCityEn: "Chengdu",
+    airportCode: "TFU",
+    countryCode: "CN",
+    timezone: "Asia/Shanghai",
+    timezoneAliases: ["Asia/Shanghai"]
+  },
+  {
+    slug: "japan-tokyo",
+    label: "日本 · 东京 Tokyo (NRT)",
+    nameZh: "东京",
+    nameEn: "Tokyo",
     defaultCityZh: "东京",
     defaultCityEn: "Tokyo",
     airportCode: "NRT",
@@ -79,10 +141,10 @@ export const departurePlaces: DeparturePlace[] = [
     timezoneAliases: ["Asia/Tokyo"]
   },
   {
-    slug: "south-korea",
-    label: "韩国 South Korea",
-    nameZh: "韩国",
-    nameEn: "South Korea",
+    slug: "south-korea-seoul",
+    label: "韩国 · 首尔 Seoul (ICN)",
+    nameZh: "首尔",
+    nameEn: "Seoul",
     defaultCityZh: "首尔",
     defaultCityEn: "Seoul",
     airportCode: "ICN",
@@ -91,10 +153,10 @@ export const departurePlaces: DeparturePlace[] = [
     timezoneAliases: ["Asia/Seoul"]
   },
   {
-    slug: "thailand",
-    label: "泰国 Thailand",
-    nameZh: "泰国",
-    nameEn: "Thailand",
+    slug: "thailand-bangkok",
+    label: "泰国 · 曼谷 Bangkok (BKK)",
+    nameZh: "曼谷",
+    nameEn: "Bangkok",
     defaultCityZh: "曼谷",
     defaultCityEn: "Bangkok",
     airportCode: "BKK",
@@ -103,8 +165,8 @@ export const departurePlaces: DeparturePlace[] = [
     timezoneAliases: ["Asia/Bangkok"]
   },
   {
-    slug: "singapore",
-    label: "新加坡 Singapore",
+    slug: "singapore-singapore",
+    label: "新加坡 · 新加坡 Singapore (SIN)",
     nameZh: "新加坡",
     nameEn: "Singapore",
     defaultCityZh: "新加坡",
@@ -115,10 +177,10 @@ export const departurePlaces: DeparturePlace[] = [
     timezoneAliases: ["Asia/Singapore"]
   },
   {
-    slug: "malaysia",
-    label: "马来西亚 Malaysia",
-    nameZh: "马来西亚",
-    nameEn: "Malaysia",
+    slug: "malaysia-kuala-lumpur",
+    label: "马来西亚 · 吉隆坡 Kuala Lumpur (KUL)",
+    nameZh: "吉隆坡",
+    nameEn: "Kuala Lumpur",
     defaultCityZh: "吉隆坡",
     defaultCityEn: "Kuala Lumpur",
     airportCode: "KUL",
@@ -127,10 +189,10 @@ export const departurePlaces: DeparturePlace[] = [
     timezoneAliases: ["Asia/Kuala_Lumpur"]
   },
   {
-    slug: "indonesia",
-    label: "印度尼西亚 Indonesia",
-    nameZh: "印度尼西亚",
-    nameEn: "Indonesia",
+    slug: "indonesia-bali",
+    label: "印度尼西亚 · 巴厘岛 Bali (DPS)",
+    nameZh: "巴厘岛",
+    nameEn: "Bali",
     defaultCityZh: "巴厘岛",
     defaultCityEn: "Bali",
     airportCode: "DPS",
@@ -181,6 +243,8 @@ export const cities: City[] = [
     temperatureRange: "28-35°C",
     clothingTip: "高 UV，注意防晒补水；未来几天有阵雨，随身带伞；商场和 BTS 空调较冷，可备薄外套",
     language: ["泰语", "英语基础可用"],
+    languagePhrases: ["你好：สวัสดี ค่ะ/ครับ（Sawadee ka/krub）", "谢谢：ขอบคุณ ค่ะ/ครับ（Khob khun ka/krub）", "多少钱：เท่าไหร่（Tao rai）"],
+    translationApps: ["Google 翻译 App", "Papago", "有道翻译官"],
     plug: "Type A / C",
     voltage: "220V",
     departureChecklist: ["护照", "官方入口", "机票", "酒店", "eSIM", "转换头"],
