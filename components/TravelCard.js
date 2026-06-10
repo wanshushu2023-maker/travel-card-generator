@@ -76,18 +76,6 @@ function buildFlightSearchUrl(departure, city, date) {
   return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 }
 
-function getFlightPriceRangeLabel(city, departure) {
-  if (city.flightPriceRanges?.[departure.slug]) return city.flightPriceRanges[departure.slug];
-  if (departure.countryCode === "CN") return city.flightPriceRanges?.["mainland-china"] ?? "请查询实时价格";
-  if (departure.countryCode === "JP") return city.flightPriceRanges?.japan ?? "请查询实时价格";
-  if (departure.countryCode === "KR") return city.flightPriceRanges?.["south-korea"] ?? "请查询实时价格";
-  if (departure.countryCode === "SG") return city.flightPriceRanges?.singapore ?? "请查询实时价格";
-  if (departure.countryCode === "MY") return city.flightPriceRanges?.malaysia ?? "请查询实时价格";
-  if (departure.countryCode === "ID") return city.flightPriceRanges?.indonesia ?? "请查询实时价格";
-  if (departure.countryCode === "TH") return city.flightPriceRanges?.thailand ?? "请查询实时价格";
-  return "请查询实时价格";
-}
-
 function EntryLine({ children, href }) {
   const className = "flex w-full items-center justify-between rounded-[12px] border border-[#dcebf7] bg-white px-4 py-3 text-left font-bold text-[#314663] transition hover:bg-[#f5fbff]";
   if (href) {
@@ -157,13 +145,13 @@ function BannerIllustration({ city }) {
 
 export default function TravelCard({ city, departure, date, flightPrice, flightPriceError, isFlightPriceLoading }) {
   const timeDifference = formatTimeDifference(city.timezone, departure);
-  const flightPriceRange = getFlightPriceRangeLabel(city, departure);
   const flightSearchUrl = buildFlightSearchUrl(departure, city, date);
   const feeNotice = ["泰国游客入境费 / 旅游税确实有 300 泰铢的政策规划，截至今天还没有执行。", "请出行前以泰国官方最新公告和航司/订票平台订单页为准。"];
+  const shouldShowFlightPriceReference = isFlightPriceLoading || flightPrice || flightPriceError;
 
   return (
-    <article className="rounded-[24px] border border-[#cfe3f8] bg-white p-4 shadow-[0_20px_55px_rgba(28,94,154,.14)] md:p-5">
-      <section className="relative overflow-hidden rounded-[20px] bg-gradient-to-r from-white via-white to-[#eaf8ff] p-6 md:p-8">
+    <article className="rounded-[18px] border border-[#cfe3f8] bg-white p-4 shadow-[0_10px_28px_rgba(28,94,154,.08)] md:p-5">
+      <section className="relative overflow-hidden rounded-[16px] bg-gradient-to-r from-white via-white to-[#eaf8ff] p-6 md:p-8">
         <BannerIllustration city={city} />
         <div className="relative z-10 max-w-[58%] max-md:max-w-full">
           <h2 className="text-[clamp(34px,5vw,52px)] font-black leading-tight text-[#102a56]">{city.cityNameZh}旅游信息卡</h2>
@@ -210,20 +198,20 @@ export default function TravelCard({ city, departure, date, flightPrice, flightP
               </ul>
             </MiniSection>
 
-            <MiniSection title="机票价格参考">
-              <FlightPriceReference
-                departureCityName={departure.defaultCityZh}
-                destinationCityName={city.cityNameZh}
-                flightPrice={flightPrice}
-                flightPriceError={flightPriceError}
-                isLoading={isFlightPriceLoading}
-              />
-              <div className="mt-3 grid gap-2">
-                <FieldRow label="静态参考区间" value={flightPriceRange} accent />
-                <ActionButton href={flightSearchUrl}>去 Google Flights 查询</ActionButton>
-                <p className="text-xs font-bold leading-5 text-[#7c8da3]">航班价格和税费以出票页面为准。</p>
-              </div>
-            </MiniSection>
+            {shouldShowFlightPriceReference ? (
+              <MiniSection title="机票价格参考">
+                <FlightPriceReference
+                  departureCityName={departure.defaultCityZh}
+                  destinationCityName={city.cityNameZh}
+                  flightPrice={flightPrice}
+                  flightPriceError={flightPriceError}
+                  isLoading={isFlightPriceLoading}
+                />
+                <div className="mt-3 grid gap-2">
+                  <ActionButton href={flightSearchUrl}>去 Google Flights 查询</ActionButton>
+                </div>
+              </MiniSection>
+            ) : null}
           </div>
 
           <div className="mt-3 rounded-[14px] bg-[#fffaf2] p-3">

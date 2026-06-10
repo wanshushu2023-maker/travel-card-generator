@@ -23,7 +23,7 @@ body {
     radial-gradient(circle at 9% 6%, rgba(16, 184, 196, 0.14), transparent 25%),
     radial-gradient(circle at 88% 5%, rgba(11, 101, 223, 0.12), transparent 26%),
     linear-gradient(180deg, #effaff 0, #ffffff 460px, #f6fbff 100%);
-  font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 a {
@@ -48,9 +48,19 @@ button {
   gap: 16px;
   min-height: 68px;
   border: 1px solid #d9e8f7;
-  border-radius: 20px;
+  border-radius: 16px;
   background: #fff;
   padding: 10px 16px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.app-combo {
+  position: relative;
+}
+
+.app-field:focus-within {
+  border-color: #8cc9ff;
+  box-shadow: 0 0 0 3px rgba(11, 101, 223, 0.08);
 }
 
 .app-field-icon {
@@ -58,7 +68,7 @@ button {
   width: 48px;
   height: 48px;
   place-items: center;
-  border-radius: 15px;
+  border-radius: 12px;
   background: #eef8ff;
   font-size: 25px;
   font-weight: 900;
@@ -84,6 +94,60 @@ button {
   font-size: 21px;
   font-weight: 900;
   outline: none;
+  text-overflow: ellipsis;
+}
+
+.combo-menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  border: 1px solid #cfe3f8;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(16, 42, 86, 0.13);
+}
+
+.combo-option {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 0;
+  border-bottom: 1px solid #edf4fb;
+  background: #fff;
+  padding: 13px 16px;
+  color: #182b49;
+  text-align: left;
+  font-weight: 900;
+  transition: background-color 0.16s ease;
+}
+
+.combo-option:last-child {
+  border-bottom: 0;
+}
+
+.combo-option:hover {
+  background: #f5fbff;
+}
+
+.combo-option small {
+  flex: 0 0 auto;
+  color: #0b65df;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.combo-empty {
+  margin: 0;
+  padding: 14px 16px;
+  color: #9a6515;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.7;
 }
 
 .hot-city-button {
@@ -91,12 +155,12 @@ button {
   align-items: center;
   gap: 8px;
   border: 1px solid #d9e8f7;
-  border-radius: 18px;
+  border-radius: 14px;
   background: #fff;
   padding: 12px 26px;
   color: #263d62;
   font-weight: 900;
-  box-shadow: 0 8px 20px rgba(16, 42, 86, 0.06);
+  box-shadow: 0 4px 10px rgba(16, 42, 86, 0.05);
   transition: 0.18s ease;
 }
 
@@ -109,16 +173,16 @@ button {
   border-color: #10b8c4;
   background: linear-gradient(180deg, #efffff, #e8fbff);
   color: #0b65df;
-  box-shadow: 0 10px 24px rgba(16, 184, 196, 0.16);
+  box-shadow: 0 6px 14px rgba(16, 184, 196, 0.12);
 }
 
 .web-info-card {
   min-height: 170px;
   border: 1px solid #d9e8f7;
-  border-radius: 18px;
+  border-radius: 16px;
   background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
   padding: 20px;
-  box-shadow: 0 12px 28px rgba(16, 42, 86, 0.06);
+  box-shadow: 0 6px 14px rgba(16, 42, 86, 0.045);
 }
 
 .city-banner {
