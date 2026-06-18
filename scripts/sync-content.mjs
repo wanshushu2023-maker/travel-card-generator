@@ -2,6 +2,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
 import mammoth from "mammoth";
+import { createRequire } from "node:module";
+const require = createRequire(import.meta.url);
+const pdfParse = require("pdf-parse");
+import XLSX from "xlsx";
 
 const rootDir = process.cwd();
 const inboxDir = path.join(rootDir, "content-inbox");
@@ -85,7 +89,10 @@ async function listFiles(dir) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       files.push(...await listFiles(fullPath));
-    } else if (/\.(txt|md|docx)$/i.test(entry.name) && entry.name !== "README.md") {
+    } else if (/\.(txt|md|docx|pdf|xlsx|xls)$/i.test(entry.name) && entry.name !== "README.md") {
+        files.push(fullPath);
+      } else if (/\.(jpg|jpeg|png|gif|webp)$/i.test(entry.name)) {
+        files.push(fullPath);
       files.push(fullPath);
     }
   }
@@ -97,6 +104,21 @@ async function readContent(file) {
   if (ext === ".docx") {
     const result = await mammoth.extractRawText({ path: file });
     return result.value;
+  }
+  if (ext === ".pdf") {
+    const buf = await fs.readFile(file);
+    const result = await pdfParse(buf);
+    return result.text;
+  }
+  if (ext === ".xlsx" || ext === ".xls") {
+    const buf = await fs.readFile(file);
+    const wb = XLSX.read(buf, { type: "buffer" });
+    const lines = [];
+    for (const name of wb.SheetNames) {
+      const text = XLSX.utils.sheet_to_text(wb.Sheets[name]);
+      lines.push(text);
+    }
+    return lines.join("\n");
   }
   return fs.readFile(file, "utf8");
 }
@@ -180,6 +202,21 @@ async function main() {
 
   for (const file of files) {
     const stat = await fs.stat(file);
+    const ext = path.extname(file).toLowerCase();
+    const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(ext);
+    if (isImage) {
+      const destSlug = detectDestination(file, "");
+      const imgName = `${Date.now()}-${path.basename(file)}`;
+      const destPath = path.join(rootDir, "public", "uploaded", imgName);
+      await fs.mkdir(path.dirname(destPath), { recursive: true });
+      await fs.copyFile(file, destPath);
+      destinations[destSlug] = destinations[destSlug] ?? {};
+      destinations[destSlug].images = destinations[destSlug].images ?? [];
+      destinations[destSlug].images.push("/uploaded/" + imgName);
+      manifest[path.relative(rootDir, file)] = { hash: "image", mtimeMs: stat.mtimeMs, size: stat.size, destination: destSlug };
+      sources.push({ path: path.relative(rootDir, file), destination: destSlug, changed: true, updatedAt: stat.mtime.toISOString(), excerpt: "[image]" });
+      continue;
+    }
     const raw = await readContent(file);
     const text = normalizeText(raw);
     const hash = hashText(text);

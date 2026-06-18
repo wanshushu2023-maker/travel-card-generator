@@ -35,7 +35,7 @@ export const destinationPowerStandards: Record<string, DestinationPowerStandard>
     voltageDisplay: "约 220-230V",
     frequencyDisplay: "50Hz",
     voltageSafetyLevel: "220-240V",
-    adapterSuggestion: "两脚扁头（手机、充电宝、相机充电器等）：多数场景可直接插，通常不需要转接头。中国常见的两脚扁形插头（A型）与泰国常见混合插座通常兼容。\n\n两脚圆头（部分剃须刀或小电器）：多数场景可直接插。泰国不少万能插座兼容欧洲标准的双圆头（C型）。\n\n三脚扁头（笔记本电脑、电热水壶、带地线的排插）：通常不能直接插，建议带转换头。",
+    adapterSuggestion: "两脚扁头（手机、充电宝、相机）\u2192 泰国混合插座通常兼容，无需转换头\n\n两脚圆头（剃须刀、小电器）\u2192 泰国兼容欧标两圆脚\n\n三脚扁头（笔记本、电水壶、排插）\u2192 泰国插座为三圆角或两扁一圆，三脚扁头需自带转换头",
     transformerAdvice: "中国大陆购买、铭牌支持 220V / 50Hz 或 100-240V 的设备，在泰国通常不需要变压器。",
     highRiskDeviceWarning: "如果设备是在台湾、日本、美国等 100-120V 地区购买，且铭牌只支持 100V / 110V / 120V，不要直接插在泰国 220V 插座上，尤其是吹风机、直发夹、卷发棒、电热水壶等大功率电器。",
     safetyNote: "转换插头只改变插头形状，不改变电压；变压器才改变电压。",

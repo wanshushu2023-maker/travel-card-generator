@@ -20,9 +20,9 @@ body {
   min-width: 320px;
   color: var(--ink);
   background:
-    radial-gradient(circle at 9% 6%, rgba(16, 184, 196, 0.14), transparent 25%),
-    radial-gradient(circle at 88% 5%, rgba(11, 101, 223, 0.12), transparent 26%),
-    linear-gradient(180deg, #effaff 0, #ffffff 460px, #f6fbff 100%);
+    radial-gradient(circle at 9% 6%, rgba(16, 184, 196, 0.12), transparent 25%),
+    radial-gradient(circle at 88% 5%, rgba(11, 101, 223, 0.1), transparent 26%),
+    linear-gradient(180deg, #f0f6ff 0, #ffffff 460px, #f8fbff 100%);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
@@ -39,6 +39,24 @@ select {
 
 button {
   cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d9e8f7;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8d0e8;
 }
 
 .app-field {
@@ -60,7 +78,8 @@ button {
 
 .app-field:focus-within {
   border-color: #8cc9ff;
-  box-shadow: 0 0 0 3px rgba(11, 101, 223, 0.08);
+  box-shadow: 0 0 0 4px rgba(11, 101, 223, 0.1);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .app-field-icon {
@@ -131,7 +150,7 @@ button {
 }
 
 .combo-option:hover {
-  background: #f5fbff;
+  background: #f0f8ff;
 }
 
 .combo-option small {
@@ -161,12 +180,14 @@ button {
   color: #263d62;
   font-weight: 900;
   box-shadow: 0 4px 10px rgba(16, 42, 86, 0.05);
-  transition: 0.18s ease;
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .hot-city-button:hover {
   transform: translateY(-2px);
   border-color: #a9d8ff;
+  box-shadow: 0 8px 18px rgba(16, 42, 86, 0.1);
 }
 
 .hot-city-button-active {

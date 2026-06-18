@@ -37,9 +37,19 @@ export type City = {
   plug: string;
   voltage: string;
   departureChecklist: string[];
+  visaStatus: Record<string, VisaStatus>;
   subtitle: string;
   emoji: string;
   accent: string;
+};
+
+export type VisaStatus = {
+  type: "visa-free" | "visa-required" | "visa-on-arrival" | "eta";
+  days?: number;
+  note?: string;
+  processingTime?: string;
+  fee?: string;
+  documents?: string[];
 };
 
 export type DeparturePlace = {
@@ -248,6 +258,15 @@ export const cities: City[] = [
     plug: "Type A / C",
     voltage: "220V",
     departureChecklist: ["护照", "官方入口", "机票", "酒店", "eSIM", "转换头"],
+    visaStatus: {
+      CN: { type: "visa-free", days: 60, note: "中国大陆护照赴泰旅游免签60天，需确保护照有效期6个月以上" },
+      JP: { type: "visa-free", days: 30 },
+      KR: { type: "visa-free", days: 30 },
+      TH: { type: "visa-free" },
+      SG: { type: "visa-free", days: 30 },
+      MY: { type: "visa-free", days: 30 },
+      ID: { type: "visa-free", days: 30 }
+    },
     subtitle: "微笑之都，精彩无限！",
     emoji: "🏯",
     accent: "#10b8c4"
@@ -279,7 +298,7 @@ export const cities: City[] = [
     flightSearchUrl: "https://www.google.com/travel/flights",
     hotelSearchUrl: "https://www.google.com/travel/hotels",
     transportWays: ["直飞", "中转", "机场铁路"],
-    entryTips: ["查看官方入境要求", "Visit Japan Web / 官方入口", "签证与入境政策请以官方信息为准"],
+    entryTips: ["中国护照赴日需提前办理旅游签证(办理周期约5-7个工作日)", "入境需通过Visit Japan Web预填入境和海关信息", "需携带护照、签证、往返机票和酒店预订单", "建议准备行程单和资产证明备查"],
     tdacUrl: "https://www.vjw.digital.go.jp/",
     currency: "JPY 日元",
     exchangeRate: "1 CNY ≈ 21 JPY",
@@ -292,6 +311,15 @@ export const cities: City[] = [
     plug: "Type A / B",
     voltage: "100V",
     departureChecklist: ["护照", "官方入口", "机票", "酒店", "交通卡", "转换头"],
+    visaStatus: {
+      CN: { type: "visa-required", note: "中国大陆护照需提前办理日本旅游签证", processingTime: "5-7 个工作日", fee: "单次 ¥200-300 / 多次 ¥400-600", documents: ["护照原件(有效期6个月以上)", "签证照片(4.5×4.5cm)", "在职证明/资产证明", "机票酒店预订单", "签证申请表"] },
+      JP: { type: "visa-free" },
+      KR: { type: "visa-free" },
+      TH: { type: "visa-free", days: 15 },
+      SG: { type: "visa-free", days: 30 },
+      MY: { type: "visa-free" },
+      ID: { type: "visa-free" }
+    },
     subtitle: "秩序都市，四季皆宜。",
     emoji: "🗼",
     accent: "#1677e8"
@@ -323,7 +351,7 @@ export const cities: City[] = [
     flightSearchUrl: "https://www.google.com/travel/flights",
     hotelSearchUrl: "https://www.google.com/travel/hotels",
     transportWays: ["直飞", "中转", "地铁接驳"],
-    entryTips: ["查看官方入境要求", "SG Arrival Card / 官方入口", "政策可能随时变化，请以官方信息为准"],
+    entryTips: ["中国护照赴新加坡免签30天(2024年2月起互免)", "入境需在抵达前3天内填写SG Arrival Card", "确保护照有效期6个月以上", "建议备好回程机票和酒店预订单"],
     tdacUrl: "https://eservices.ica.gov.sg/sgarrivalcard/",
     currency: "SGD 新加坡元",
     exchangeRate: "1 CNY ≈ 0.18 SGD",
@@ -336,6 +364,15 @@ export const cities: City[] = [
     plug: "Type G",
     voltage: "230V",
     departureChecklist: ["护照", "官方入口", "机票", "酒店", "流量卡", "转换头"],
+    visaStatus: {
+      CN: { type: "visa-free", days: 30, note: "中国与新加坡互免签证，入境需提前填写SG Arrival Card" },
+      JP: { type: "visa-free", days: 30 },
+      KR: { type: "visa-free", days: 30 },
+      SG: { type: "visa-free" },
+      MY: { type: "visa-free", days: 30 },
+      ID: { type: "visa-free", days: 30 },
+      TH: { type: "visa-free", days: 30 }
+    },
     subtitle: "花园城市，轻松短途旅行。",
     emoji: "🦁",
     accent: "#18b889"
@@ -367,7 +404,7 @@ export const cities: City[] = [
     flightSearchUrl: "https://www.google.com/travel/flights",
     hotelSearchUrl: "https://www.google.com/travel/hotels",
     transportWays: ["直飞", "中转", "关西铁路"],
-    entryTips: ["查看官方入境要求", "Visit Japan Web / 官方入口", "签证与入境政策请以官方信息为准"],
+    entryTips: ["中国护照赴日需提前办理旅游签证(办理周期约5-7个工作日)", "入境需通过Visit Japan Web预填入境和海关信息", "需携带护照、签证、往返机票和酒店预订单", "建议准备行程单和资产证明备查"],
     tdacUrl: "https://www.vjw.digital.go.jp/",
     currency: "JPY 日元",
     exchangeRate: "1 CNY ≈ 21 JPY",
@@ -380,6 +417,15 @@ export const cities: City[] = [
     plug: "Type A / B",
     voltage: "100V",
     departureChecklist: ["护照", "官方入口", "机票", "酒店", "交通卡", "转换头"],
+    visaStatus: {
+      CN: { type: "visa-required", note: "中国大陆护照需提前办理日本旅游签证", processingTime: "5-7 个工作日", fee: "单次 ¥200-300 / 多次 ¥400-600", documents: ["护照原件(有效期6个月以上)", "签证照片(4.5×4.5cm)", "在职证明/资产证明", "机票酒店预订单", "签证申请表"] },
+      JP: { type: "visa-free" },
+      KR: { type: "visa-free" },
+      TH: { type: "visa-free", days: 15 },
+      SG: { type: "visa-free", days: 30 },
+      MY: { type: "visa-free" },
+      ID: { type: "visa-free" }
+    },
     subtitle: "美食、城景与关西旅行起点。",
     emoji: "🏯",
     accent: "#f59f35"
@@ -411,7 +457,7 @@ export const cities: City[] = [
     flightSearchUrl: "https://www.google.com/travel/flights",
     hotelSearchUrl: "https://www.google.com/travel/hotels",
     transportWays: ["直飞", "中转", "机场快线"],
-    entryTips: ["查看官方入境要求", "MDAC 电子入境卡 / 官方入口", "政策可能随时变化，请以官方信息为准"],
+    entryTips: ["中国护照赴马来西亚免签30天(2023年12月起免签)", "入境需在抵达前3天内填写MDAC电子入境卡", "确保护照有效期6个月以上", "建议备好往返机票和酒店预订单"],
     tdacUrl: "https://imigresen-online.imi.gov.my/mdac/main",
     currency: "MYR 林吉特",
     exchangeRate: "1 CNY ≈ 0.65 MYR",
@@ -424,6 +470,15 @@ export const cities: City[] = [
     plug: "Type G",
     voltage: "240V",
     departureChecklist: ["护照", "官方入口", "机票", "酒店", "eSIM", "转换头"],
+    visaStatus: {
+      CN: { type: "visa-free", days: 30, note: "中国大陆护照赴马来西亚免签30天，需填写MDAC电子入境卡" },
+      JP: { type: "visa-free" },
+      KR: { type: "visa-free" },
+      SG: { type: "visa-free" },
+      MY: { type: "visa-free" },
+      ID: { type: "visa-free" },
+      TH: { type: "visa-free" }
+    },
     subtitle: "热带城市，多元文化夜景。",
     emoji: "🏙️",
     accent: "#6c63ff"
@@ -455,7 +510,7 @@ export const cities: City[] = [
     flightSearchUrl: "https://www.google.com/travel/flights",
     hotelSearchUrl: "https://www.google.com/travel/hotels",
     transportWays: ["直飞", "中转", "包车接驳"],
-    entryTips: ["查看官方入境要求", "电子海关申报 / 官方入口", "政策可能随时变化，请以官方信息为准"],
+    entryTips: ["中国护照可办理落地签(VOA)30天，费用500,000印尼盾(约¥230)", "落地签可在机场办理，需准备现金支付", "确保护照有效期6个月以上", "建议备好回程机票和酒店预订单"],
     tdacUrl: "https://ecd.beacukai.go.id/",
     currency: "IDR 印尼盾",
     exchangeRate: "1 CNY ≈ 2250 IDR",
@@ -468,6 +523,15 @@ export const cities: City[] = [
     plug: "Type C / F",
     voltage: "230V",
     departureChecklist: ["护照", "官方入口", "机票", "酒店", "流量卡", "转换头"],
+    visaStatus: {
+      CN: { type: "visa-on-arrival", days: 30, note: "中国大陆护照可办理落地签(VOA)30天，费用500,000印尼盾(约¥230)，可延期一次", processingTime: "落地后办理(约15-30分钟)", fee: "500,000印尼盾(约¥230)" },
+      JP: { type: "visa-free", days: 30 },
+      KR: { type: "visa-free", days: 30 },
+      SG: { type: "visa-free", days: 30 },
+      MY: { type: "visa-free" },
+      ID: { type: "visa-free" },
+      TH: { type: "visa-free" }
+    },
     subtitle: "海岛、稻田与慢节奏假期。",
     emoji: "🌴",
     accent: "#19b7a8"
