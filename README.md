@@ -21,3 +21,4 @@ http://127.0.0.1:8080
 - 城市和国家数据保留 `slug`、`name_zh`、`name_en`。
 - 后续可复制 App Router 路由到 `/en`、`/ja`、`/ko`、`/th`、`/vi`。
 - 当前版本只渲染中文版。
+# test
